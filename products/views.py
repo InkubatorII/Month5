@@ -19,11 +19,12 @@ def product_detail_api_view(request, id):
 @api_view(['GET'])
 def product_list_api_view(request):
     # step 1: Collect products (QuerySet)
-    products = Product.objects.all()
-    print(products)
+    products = (Product.objects.select_related('category')
+                .prefetch_related('tags', 'reviews').all())
+
     # step 2: Reformat(Serialize) QuerySet to list Dictionaries (QueryDict)
     data = ProductSerializer(instance=products, many=True).data
-    print(data)
+
     # step 3: Return response as JSON
     return Response(data=data, status=status.HTTP_200_OK)
 
