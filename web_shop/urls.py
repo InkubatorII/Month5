@@ -19,8 +19,7 @@ from django.urls import path
 from products import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/test/', views.test_api_view),
-    path('api/v1/products/', views.product_list_create_api_view), #Get-->list, Post-->create
-    path('api/v1/products/<int:id>/', views.product_detail_update_destroy_api_view) #Get-->item, PUT--> upgrade, Delete-->destroy
+    path('', views.product_list_create_api_view),
+    path('<int:id>/', views.product_detail_update_destroy_api_view),
+
 ]
